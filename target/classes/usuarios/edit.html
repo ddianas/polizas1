@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <!--/*/ <th:block th:include="top :: top"></th:block> /*/-->
+
+    <body>
+
+        <div class="container">
+
+            <!--/*/ <th:block th:include="header :: header"></th:block> /*/-->
+            
+            <!-- ============================================================= -->
+            <!-- Inicio Zona de Ajuste -->
+
+            <h2>Usuario</h2>
+            <div>
+                <form class="form-horizontal" th:object="${entity}" th:action="@{/usuarios}" method="post">
+                    <input type="hidden" th:field="*{id}"/>                                
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Usuario</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{username}"/>
+                        </div>                       
+                    </div>   
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{passorig}"/>
+                        </div>                       
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" th:field="*{inactivo}"/>
+                            Usuario Inactivo
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">
+                        <label align="right" >Rol</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select  class="form-control" th:field="${entity.rol}" >                            
+                                <option th:each="rol : ${roles}"
+                                        th:value="${rol.id}"
+                                        th:selected="${rol.id}"
+                                        th:text="${rol.descrip}"/>
+                            </select>
+                        </div>
+                    </div>                  
+                                                           
+                    <div class="row">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a class="btn btn-default" th:href="${'/seguros/usuarios'}">Cancelar</a>
+                    </div>
+                    <h5 style="color:red;" th:text="${message}"></h5>
+                </form>
+            </div>
+            
+            <!-- Fin Zona de Ajuste -->
+
+        </div>
+
+    </body>
+</html>

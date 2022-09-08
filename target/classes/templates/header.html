@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+
+    </head>
+    <body>
+
+        <div class="container">
+            <div th:fragment="header">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/seguros">ESTUDIOS</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/seguros">Home</a></li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Polizas
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" th:href="@{/polizas}">Polizas</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Archivos
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" th:href="@{/clientes}">Clientes</a></li>
+                                    <li><a href="#" th:href="@{/siniestros}">Siniestros</a></li>
+                                    <li><a href="#" th:href="@{/tiposiniestro}">Tipos de Siniestros</a></li>
+                                    <li><a href="#" th:href="@{/cobertura}">Coberturas</a></li>
+                                    <li><a href="#" th:href="@{/tiposdoc}">Tipos de Documento</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" th:href="@{/usuarios}">Usuarios</a></li>
+                                    <li><a href="#" th:href="@{/roles}">Roles</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </body>
+</html>

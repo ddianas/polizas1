@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <!--/*/ <th:block th:include="top :: top"></th:block> /*/-->
+
+    <body>
+
+        <div class="container">
+
+            <!--/*/ <th:block th:include="header :: header"></th:block> /*/-->
+            
+            <!-- ============================================================= -->
+            <!-- Inicio Zona de Ajuste -->
+
+            <div class="row">
+
+                <div class="col-sm-5">
+
+                    <form class="form-horizontal" th:object="${entity}" th:action="@{/siniestros/search}" method="post">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" th:field="*{id}"/>
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="submit" class="btn btn-success">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="col-sm-1">                    
+                    <a class="btn btn-info" th:href="${'/seguros/siniestros/refresh/'}">Refrescar</a>
+                </div>
+                <div class="col-sm-1">
+                    <a class="btn btn-default" th:href="${'/seguros/siniestros/create/0'}">Nuevo</a>
+                </div>
+                <div class="col-sm-11">
+                    <h5 style="color:red;" th:text="${message}"></h5>
+                </div>             
+            </div>
+
+            <br/>
+
+            <div th:if="${not #lists.isEmpty(entities)}">
+
+                <table class="table" width="100%">
+                    <tr>
+                        <th>Id</th>
+                        <th>N° de transacción</th>
+                        <th>Cliente</th>
+                        <th>Poliza</th>
+                        <th>Tipo de siniestro</th>
+                        <th>Fecha de ocurrencia</th>
+                        <th>Monto</th>
+                        <th>Observación</th>
+                        <th>Editar</th>
+                        <th>Borrar</th>
+                    </tr>
+                    
+                    <tr th:each="entity : ${entities}">
+                        <td width="5%" th:text="${entity.id}"></td>
+                        <td width="15%" th:text="${entity.numtransaccion}"></td>
+                        <td width="10%" th:text="${entity.clientes.apellido}"></td>
+                        <td width="10%" th:text="${entity.polizas.nropoliza}"></td>
+                        <td width="15%" th:text="${entity.tiposiniestro.descrip}"></td>
+                        <td width="15%" th:text="${entity.fechaocurrencia}"></td>
+                        <td width="5%" th:text="${entity.monto}"></td>
+                        <td width="10%" th:text="${entity.observacion}"></td>
+                        <td width="5%"><a class="btn btn-warning" th:href="${'/seguros/siniestros/edit/' + entity.id}">Editar</a></td>
+                        <td width="5%"><a class="btn btn-danger" th:onclick="'javascript:jsdelete('+ *{entity.id} +')'">Borrar</a></td>
+                    </tr>                    
+                </table>                
+
+            </div>
+            
+            <!-- Fin Zona de Ajuste -->
+            <!-- ============================================================= -->
+
+            <div th:if="${page != null}">
+                <div class="col-sm-7">
+                    <!-- Pagination Bar -->
+                    <div th:fragment='paginationbar'>
+                        <div class="text-center">
+                            <ul class='pagination pagination-centered'>
+                                <li th:class="${page.firstPage}?'disabled':''">
+                                    <span th:if='${page.firstPage}'>← First</span>
+                                    <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}'>←
+                                        First</a>
+                                </li>
+                                <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                                    <span th:if='${not page.hasPreviousPage}'>«</span>
+                                    <a th:if='${page.hasPreviousPage}'
+                                       th:href='@{${page.url}(page=${page.number-2},size=${page.size})}'
+                                       title='Go to previous page'>«</a>
+                                </li>
+                                <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                                    <span th:if='${item.current}' th:text='${item.number}'>1</span>
+                                    <a th:if='${not item.current}'
+                                       th:href='@{${page.url}(page=${item.number-1},size=${page.size})}'><span
+                                            th:text='${item.number}'>1</span></a>
+                                </li>
+                                <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                                    <span th:if='${not page.hasNextPage}'>»</span>
+                                    <a th:if='${page.hasNextPage}'
+                                       th:href='@{${page.url}(page=${page.number},size=${page.size})}'
+                                       title='Go to next page'>»</a>
+                                </li>
+                                <li th:class="${page.lastPage}? 'disabled' : ''">
+                                    <span th:if='${page.lastPage}'>Last →</span>
+                                    <a th:if='${not page.lastPage}'
+                                       th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}'>Last →</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+
+</html>
+
+<script th:inline="javascript">
+
+      /*<![CDATA[*/
+	 
+         function jsdelete(id) {
+         
+           if (confirm('¿ Seguro para Eliminar Registro ?')) {
+             var s = location.href;
+             var n = s.search("siniestros/delete/");
+             if (n == -1) {
+                 var host = 'siniestros/delete/' + id;
+             } else {
+                 var host = '../../siniestros/delete/' + id;
+             }
+             window.location.href = host;
+           }
+             
+         }
+
+       /*]]>*/
+</script> 

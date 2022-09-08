@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <!--/*/ <th:block th:include="top :: top"></th:block> /*/-->
+
+    <body>
+
+        <div class="container">
+
+            <!--/*/ <th:block th:include="header :: header"></th:block> /*/-->
+
+            <h2>Polizas</h2>
+            <div>
+                <form class="form-horizontal" th:object="${entity}" th:action="@{/polizas}" method="post">
+                    <input type="hidden" th:field="*{id}"/>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Número de Poliza</label>
+                        <div class="col-sm-10">
+                            <input type="number" name="points" step="1" class="form-control" th:field="*{nropoliza}"/>
+                        </div>                       
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">
+                            <label align="right" >Cliente</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select  class="form-control" th:field="${entity.clientes}" >
+                                <option th:each="clientes : ${clientes}"
+                                        th:value="${clientes.id}"
+                                        th:selected="${clientes.id}"
+                                        th:text="${clientes.apellido}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">
+                            <label align="right" >Cobertura</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select  class="form-control" th:field="${entity.cobertura}" >
+                                <option th:each="cobertura : ${cobertura}"
+                                        th:value="${cobertura.id}"
+                                        th:selected="${cobertura.id}"
+                                        th:text="${cobertura.descrip}"/>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Fecha de inicio</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" th:field="*{fechainicio}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Fecha de fin</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" th:field="*{fechafin}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Prima</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{prima}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Descripción</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{descrip}"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <button type="submit" class="btn btn-success">Guardar</button>                        
+                        <a class="btn btn-default" th:href="${'/seguros/polizas'}">Cancelar</a>
+                    </div>
+                    <h5 style="color:red;" th:text="${message}"></h5>
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+</html>
